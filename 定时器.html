@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+    
+</head>
+
+<body>
+    <input type="button" value="tingzhi" id="btn">
+    <script>
+        //setInterval(参数1,参数2); ----定时器
+        //参数1：函数
+        //参数2：时间--毫秒
+        //执行过程：页面加载完毕后 过了n秒执行函数。。。循环
+        //返回值：定时器的id值
+        document.getElementById("btn").onclick = function(){
+           clearInterval(timer); 
+        }
+        var timer = setInterval(function(){
+            console.log("后羿别浪");
+        },1000);
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #tet {
+            width: 350px;
+        }
+        #box{
+            width: 400px;
+            margin: 200px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <input type="text" name="" id="tet">
+    </div>
+
+    <script src="../common.js"></script>
+    <script>
+        var keyWords = ["小红好漂亮", "小兰好耍起", "lalal", "我喜欢波兰", "波兰喜欢兰博气你"];
+        my$("tet").onkeyup = function () {
+            //每次都要删除热点词框
+            if (my$("dv")) {
+                my$("box").removeChild(my$("dv"));
+            }
+            var text = this.value;
+            var tempArr = []; //临时数组，存放对应的数据
+            for (var i = 0; i < keyWords.length; i++) {
+                //判断最开始出现的热词是否相同
+                if (keyWords[i].indexOf(text) == 0 && this.value != '')
+                    tempArr.push(keyWords[i]); //向临时数组添加数据
+            }
+            if (this.value.length == 0 || tempArr.length == 0) {
+                if (my$("dv")) {
+                    my$("box").removeChild(my$("dv"));
+                }
+                return;
+            }
+            var dvObj = document.createElement("div");
+            my$("box").appendChild(dvObj);
+            dvObj.id = "dv";
+            dvObj.style.width = "350px";
+            dvObj.style.border = "1px solid red";
+            //循环遍历临时数组,创建对应的p标签
+            for (var i = 0; i < tempArr.length; i++) {
+                //创建p标签
+                var pObj = document.createElement("p");
+                //把p加到div中
+                dvObj.appendChild(pObj);
+                setInnerText(pObj, tempArr[i]);
+                pObj.style.cursor = "pointer";
+                pObj.style.marginTop = "5px";
+                pObj.style.marginLeft = "5px";
+                //鼠标进入
+                pObj.onmouseover = function () {
+                    this.style.backgroundColor = "yellow";
+                };
+                //鼠标离开
+                pObj.onmouseout = function () {
+                    this.style.backgroundColor = "";
+                };
+            }
+
+        }
+    </script>
+</body>
+
+</html>

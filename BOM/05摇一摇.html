@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            width: 300px;
+            height: 200px;
+        }
+
+        div {
+            position: absolute;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="yao" id="btn1">
+    <input type="button" value="ting" id="btn2">
+
+    <div id="yao">
+        <img src="../DOM/images/詹姆斯1.jpg" alt="">
+        <img src="../DOM/images/詹姆斯2.jpg" alt="">
+    </div>
+    <script>
+        var timeId = null;
+        document.getElementById("btn1").onclick = function () {
+
+            timeId = setInterval(function () {
+                //随机数
+                var x = parseInt(Math.random() * 100 + 1);
+                var y = parseInt(Math.random() * 100 + 1);
+                document.getElementById("yao").style.left = x + "px";
+                document.getElementById("yao").style.top = y + "px";
+            }, 500);
+        }
+        document.getElementById("btn2").onclick = function(){
+            clearInterval(timeId);
+        }
+    </script>
+</body>
+
+</html>

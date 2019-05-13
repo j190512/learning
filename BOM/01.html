@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+    <script>
+        //页面加载完后才执行window.onload 的代码
+       window.onload = function(){
+            my$("btn").onclick = function(){
+                alert("aa");
+            }
+        }
+        //页面关闭之后才执行  ---ie8 才可以
+        window.onunload = function(){
+            alert("asda");
+        }
+        //页面关闭之前才执行 --ie8 才可以
+        window.onbeforeload = function(){}
+    </script>
+</head>
+
+<body>
+    <input type="button" value="aa"id="btn">
+    <script>
+        /*
+        浏览器顶级对象--window
+        页面顶级对象--document
+        页面所有内容都是window的，页面中的内容也是window
+        */    
+       //系统对话框 --尽量不用
+    //    window.alert("bb");//
+    //    window.prompt("aa");//
+    //    window.confirm("cc");//返回值：true false 
+    </script>
+    <script src="../common.js"></script>
+</body>
+
+</html>
