@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id="btn" value="按钮">
+    <script>
+
+        //为同一个元素绑定多个事件的方法    对象.addEventListener(参数，参数，参数)   ie8不支持
+        //参数1：事件类型（字符串）--->没有on
+        //参数2：事件处理函数--->匿名函数/命名函数
+        //参数3：布尔类型
+
+        // document.getElementById("btn").addEventListener("click",function(){
+        //     console.log("1");
+        // },false);
+        // document.getElementById("btn").addEventListener("click",function(){
+        //     console.log("2");
+        // },false);
+        // document.getElementById("btn").addEventListener("click",function(){
+        //     console.log("3");
+        // },false);
+
+
+
+        // ie8中 使用,ie11不支持
+        //attachEvent(参数,参数)------>参数1：事件类型（字符串）有on； 参数2 事件处理函数
+        // document.getElementById("btn").attachEvent("onclick",function(){
+        //     console.log("ie8真厉害");
+        // })
+
+        //兼容代码--为任意元素绑定任意事件
+        function addEventListener(element,type,fn){
+            //判断浏览器是否支持这个方法
+            if(element.addEventListener){
+                element.addEventListener(type,fn,false);
+                console.log(this);//当前对象
+            }
+            else if(element.attachEvent){
+                element.attachEvent("on"+type,fn);
+                console.log(this);//window
+            }
+            else{
+                element["on"+type]=fn;
+            }
+        }
+        //对象.onclick = function(){}  <----------->  对象["on"+"click"] = function(){}
+        var btn = document.getElementById("btn");
+        addEventListener(btn,"click",function(){
+            console.log("2222222");
+        })
+    </script>
+</body>
+</html>

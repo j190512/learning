@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #dv {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" id="btn" value="创建一个p">
+    <div id="dv"></div>
+    <script>
+        var btn = document.getElementById("btn");
+        var dv = document.getElementById("dv");
+        //创建元素的方法
+        // 1.document.write("标签的代码以及内容")
+
+        // btn.onclick = function () {
+        //     document.write("<p>p</p>");
+        //缺陷，如果在页面加载完毕后，使用此方法，页面其他的东西没了
+        // }
+
+        // 2.对象.innerHTML = "标签代码以及内容";
+
+        // btn.onclick = function(){
+        //     dv.innerHTML = "<p> pp </p>";//需要放在父级元素中
+        //     //缺陷：每点击一次都会重新赋值一次
+        // }
+
+        // 3.document.createElement("标签名字")--->把元素追加到父级元素追 -->appendChild(父元素)
+
+        btn.onclick = function () {
+            // var newP = document.createElement("p");
+            // dv.appendChild(newP);//注意：一直点击可以一直创建
+
+
+            //只创建一个------>有则删除
+            // if(document.getElementById("dv").getElementsByTagName("p")[0]){
+            //     dv.removeChild(document.getElementsByTagName("p")[0]);
+            // }
+            //  var newP = document.createElement("p");
+            //  dv.appendChild(newP);
+
+            //只创建一个------>无则创建
+            if (!document.getElementById("dv").getElementsByTagName("p")[0]) {
+                var newP = document.createElement("p");
+                dv.appendChild(newP);
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

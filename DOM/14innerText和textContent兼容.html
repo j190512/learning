@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" id='btn' value="获取">
+    <div id="dv">我我我</div>
+    <script>
+        //innerHTML 可以设置文本，也可以添加标签
+        //innerText 只能设置文本 
+        function setInnerText(element,text){
+            if(typeof element.textContent == "undefined"){
+                element.innerText = text;
+            }
+            else{
+                element.textContent = text;
+            }
+        }
+
+        function getInnerText(element){
+            if(typeof element.textContent == "undefined"){
+                return element.innerText;
+            }
+            else{
+                return element.textContent;
+            }
+        }
+
+        function my$(id){
+            return document.getElementById(id);
+        }
+        my$("btn").onclick = function(){
+            // console.log(my$("dv").textContent);//ie8 不支持
+            // my$("dv").textContent = "hah";
+            // console.log(my$("dv").innerText);
+            console.log(getInnerText(my$("dv")));
+        }
+    </script>
+</body>
+</html>

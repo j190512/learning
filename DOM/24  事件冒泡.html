@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+    <style>
+        #div1{
+            width: 300px;
+            height: 300px;
+            background: red;
+        }
+        #div2{
+            width: 200px;
+            height: 200px;
+            background: blue;
+        }
+        #div3{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 事件冒泡：多个元素嵌套，有层次关系，如果这些元素都注册了相同的事件，
+        那么若里面的元素的事件触发了，外面元素的事件自动触发 -->
+    <div id="div1">
+        <div id="div2">
+            <div id="div3"></div>
+        </div>
+    </div>
+    <input type="button" value="显示" id="btn">
+    <script src="../common.js"></script>
+    <script>
+        // 事件的三个阶段：
+        // 1 事件的捕获阶段 : 从外向内
+        // 2 目标阶段   ：最开始选择的
+        // 3 冒泡阶段   ：从里向外
+
+        // my$("div1").onclick = function(){
+        //     console.log(this.id);
+        // }
+        // my$("div2").onclick = function(){
+        //     console.log(this.id);
+        // }
+        // //点击div3 输出 div3 div2 div1
+        // my$("div3").onclick = function(e){//IE8不支持e
+        //     //argument[0]   e -->对象：事件处理对象---->默认存在
+        //     console.log(this.id);
+        //     // window.event.cancelBubble = true;//阻止事件冒泡---->IE独有，谷歌支持，旧火狐不支持
+        //     // e.stopPropagation();//IE8不支持
+        //     //e = window.event 事件参数对象
+        // }
+        //同时注册点击事件
+        // var objs = [my$("div1"),my$("div2"),my$("div3")];
+        // // 遍历注册
+        // objs.forEach(function(ele){
+        //     ele.addEventListener("click",function(e){
+        //         console.log(this.id + "----" + e.eventPhase);//233
+        //     },false);//false :冒泡阶段---true:捕获阶段
+        // })
+
+        //为同一个元素绑定多个不同的事件，指向相同的事件处理函数
+        my$("btn").onclick = f;
+        my$("btn").onmouseover = f;
+        my$("btn").onmouseout = f;
+        function f(e){
+            switch (e.type){
+                case "click":alert("点击");break;
+                case "mouseover":this.style.background = "red";break;
+                case  "mouseout":this.style.background ="green";break;
+            }
+        }
+    </script>
+</body>
+
+</html>

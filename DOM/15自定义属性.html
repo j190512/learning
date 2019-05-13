@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            cursor: pointer;
+            list-style-type: none;
+        }
+        .l{
+            background: wheat;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="uu">
+        <li class="l">我</li>
+        <li>你</li>
+        <li>他</li>
+    </ul>
+    <input type="button" value="添加自定义属性" id="btn"><br>
+    <input type="button" value="删除自定义属性" id="btn2">
+    <script>
+        document.getElementById("btn").onclick =function(){
+            var objs = document.getElementById("uu").getElementsByTagName("li");
+            for (var i = 0; i < objs.length; i++) {
+            //为每个li添加自定义属性
+            // objs[i].score = (i+1)*10;//此方式，自定义属性在DOM对象上，不在标签中
+            objs[i].setAttribute("score", (i + 1) * 10);
+            objs[i].onclick = function () {
+                // console.log(this.like);// undefined 不能获取自定义属性
+                console.log(this.getAttribute("score")); //获取自定义属性——————getAttribute("属性名")
+            }
+        }
+        }
+
+        document.getElementById("btn2").onclick = function(){
+            var objs = document.getElementById("uu").getElementsByTagName("li");
+            for(var i =0;i <objs.length;i++){
+                objs[i].removeAttribute("score");//移除自定义属性
+                // objs[i].className = "";//不干净，还有class属性存在
+                objs[i].removeAttribute("class");//干净
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="修改" id="btn">
+    <input type="radio" name="sex" value="1">男
+    <input type="radio" name="sex" value="2" id="rad1">女
+    <input type="radio" name="sex" value="3">保密
+    <script>
+        function my$(id){
+            return document.getElementById(id);
+        }
+        my$("btn").onclick = function(){
+            my$("rad1").checked = true;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="checkbox" name="all" id="all">全选
+        <div id="checkboxs">
+            <ul>
+                <li>
+                    <input type="checkbox" name="" id="lan">篮球
+                </li>
+                <li>
+                    <input type="checkbox" name="" id="zu">足球
+                </li>
+                <li>
+                    <input type="checkbox" name="" id="pp">乒乓球
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <script>
+        function my$(id) {
+            return document.getElementById(id);
+        }
+        var all = my$("all");
+        var likes = my$("checkboxs").getElementsByTagName("input");
+        //为全选框注册点击事件
+        all.onclick = function () {
+            for(var i =0;i<likes.length;i++){
+                likes[i].checked=all.checked;
+            }
+        };
+        //为每一个CheckBox注册点击事件
+        for(var i = 0;i<likes.length;i++){
+            likes[i].onclick = function(){
+                var flag = true;
+                for(var j = 0;j<likes.length;j++){
+                    //判断每一个复选框是否都被选中
+                    if(!likes[j].checked){
+                        //存在没有被选中的复选框
+                        flag = false;
+                        break;
+                    }
+                }
+                all.checked = flag;
+            }
+        }
+    </script>
+</body>
+
+</html>

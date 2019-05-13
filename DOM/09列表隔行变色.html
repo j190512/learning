@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="隔行变色" id="btn">
+    <ul id="uu">
+        <li>11111</li>
+        <li>22222</li>
+        <li>33333</li>
+        <li>44444</li>
+        <li>55555</li>
+    </ul>
+    <script>
+        function my$(id){
+            return document.getElementById(id);
+        }
+        my$("btn").onclick = function(){
+            var list = my$("uu").getElementsByTagName("li");
+            for(var i =0; i<list.length;i++){
+                list[i].style.backgroundColor = i%2==0?"red":"green";
+                // if(i%2==0){
+                //     list[i].style.backgroundColor = "red";
+                // }
+                // else{
+                //     list[i].style.backgroundColor = "green";
+                // }
+            }
+        }
+    </script>
+</body>
+</html>

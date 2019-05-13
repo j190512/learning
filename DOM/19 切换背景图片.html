@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* *{
+            margin: 0;
+            padding: 0;
+        } */
+        body{
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: url("images/詹姆斯1.jpg") no-repeat;
+            background-size: 100%;
+            /*全屏*/
+        }
+
+        .smallImg {
+            width: 320px;
+            height: 100px;
+            margin: 100px auto;
+            /* border: 1px solid black; */
+        }
+
+        .smallImg img {
+            width: 100px;
+            margin-left: 10px;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        .smallImg img:first-child {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="smallImg">
+        <img src="images/詹姆斯1.jpg" alt=""><img src="images/詹姆斯2.jpg" alt=""><img src="images/詹姆斯3.jpg" alt="">
+    </div>
+    <script>
+        var obj = document.getElementsByClassName("smallImg")[0].children;
+        
+        for (var i = 0; i < obj.length; i++) {          
+            obj[i].onclick = function () {
+                document.body.style.backgroundImage = "url("+this.src+")";
+            }
+        }
+    </script>
+</body>
+
+</html>

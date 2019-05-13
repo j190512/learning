@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .cls{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <p class="cls">p1</p>
+    <p>p2</p>
+    <span class="cls">span1</span><br>
+    <span>span2</span><br>
+    <div class="cls">div1</div>
+    <div id="dv">div2</div>
+    <input type="button" id="btn" value="改变颜色">
+    <script>
+        function my$(id){
+            return document.getElementById(id); 
+        }
+        // my$("btn").onclick = function(){
+        //     var objs = document.getElementsByClassName("cls");//h5
+        //     for(var i = 0; i<objs.length;i++){
+        //         objs[i].style.backgroundColor = "yellow";
+        //     }
+        // }
+            // my$("btn").onclick = function(){
+            //     //选择器
+            //     var obj = document.querySelector("#dv");//h5 只选择一个元素
+            //     obj.style.backgroundColor = "pink";
+            // }
+            my$("btn").onclick=function(){
+                var objs =document.querySelectorAll(".cls");
+                for(var i =0; i<objs.length;i++){
+                    objs[i].style.backgroundColor = "blue";
+                }
+            }            
+
+
+
+    </script>
+</body>
+</html>

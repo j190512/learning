@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="change" id="btn"><br>
+    <input type="text" name="name2" value="w w w"><br>
+    <input type="text" name="name" value="w w w"><br>
+    <input type="text" name="name2" value="w w w"><br>
+    <input type="text" name="name2" value="w w w"><br>
+    <input type="text" name="name" value="w w w"><br>
+    <input type="text" name="name" value="w w w"><br>
+    <script>
+        document.getElementById("btn").onclick = function(){
+            var inputs = document.getElementsByName("name2");
+            for(var i=0;i<inputs.length;i++){
+                inputs[i].value = "呵呵";
+            }
+        }
+    </script>
+</body>
+</html>

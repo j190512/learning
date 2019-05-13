@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            border: 1px solid red;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+    <div>7</div>
+    <div>8</div>
+    <div>9</div>
+    <div>10</div>
+    <div>11</div>
+    <div>12</div>
+    <input type="button" value="开始" id="startBtn"><br>
+    <input type="button" value="暂停" id="stopBtn">
+    <script>
+        function my$(id) {
+            return document.getElementById(id);
+        }
+
+        function getRanDomOne(min, max) {
+            var result = 0;
+            result = Math.floor(Math.random() * (max - min + 1) + min);
+            return result;
+        }
+        var divs = document.getElementsByTagName("div");
+        var flag = true; //判断是否停止点名，默认为true
+        var i = null;
+        my$("startBtn").onclick = function () {
+            my$("startBtn").disabled = true;
+            //初始状态：消除所有记号
+            for (var j = 0; j < divs.length; j++) {
+                divs[j].style.background = "";
+            }
+            flag = true;//再次按下开始键，恢复默认状态
+            var len = divs.length;
+            i = getRanDomOne(0, len - 1);
+            divs[i].style.backgroundColor = "red";
+            var timer = null;
+            // clearTimeout(timer);//清除计时器
+            nextName();
+            function nextName() {
+                var who = i;
+                //按下停止就取消计时器，停止函数
+                if (!flag) {
+                    clearTimeout(timer);
+                    return false;
+                }
+                for (var j = 0; j < len; j++) {
+                    divs[j].style.background = "";
+                }
+                i = getRanDomOne(0, len - 1);
+                //避免相邻随机数相同              
+                while (who == i) {
+                    i = getRanDomOne(0, len - 1);
+                }
+                console.log(i);
+                //选中的人有背景色
+                divs[i].style.backgroundColor = "red";
+                // console.log(divs[i].innerText);
+                timer = setTimeout(function () {
+                    nextName();
+                }, 500);
+            }
+        }
+        my$("stopBtn").onclick = function () {
+            flag = false;
+            my$("startBtn").disabled = false;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        nav{
+            margin: 100px auto 0px;
+            width: 300px;
+            height: 50px;
+            display: flex;
+        }
+        nav span{
+            display: inline-block;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            box-sizing: border-box;
+            flex: 1;
+            background: wheat;
+        }
+        article{
+            margin: 0 auto;
+            width: 300px;
+            height: 300px;
+        }
+        article li{
+            display: none;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            font-size: 5em;
+        }
+        .selectW{
+            background-color: gray;
+            display: block;
+        }
+        .selectN{
+            background-color: red;
+            display: block;
+        }
+        .selectT{
+            background-color: greenyellow;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <span>我</span>
+        <span>你</span>
+        <span class="selectT">他</span>
+    </nav>
+    <article>
+        <ul>
+            <li>帅</li>
+            <li>丑</li>
+            <li class="selectT">丑</li>
+        </ul>
+    </article>
+    <script>
+        var spans = document.getElementsByTagName("span");
+        var lis = document.getElementsByTagName("li");
+
+        for(var i = 0;i<spans.length;i++){
+            spans[i].setAttribute("index",i);//添加索引自定义属性
+            spans[i].onmouseover = function(){
+                for(var j = 0;j<spans.length;j++){
+                    spans[j].removeAttribute("class");
+                }
+                 //导航栏切换              
+                this.className = this.getAttribute("index") == 0?"selectW": this.getAttribute("index") == 1?"selectN": "selectT";
+                //清除每个li的样式
+                for(var j = 0;j<lis.length;j++){
+                    lis[j].removeAttribute("class");
+                } 
+                var index = this.getAttribute("index");
+                lis[index].className = index ==0?"selectW":index==1?"selectN":"selectT";
+            }
+        }
+    </script>
+</body>
+</html>

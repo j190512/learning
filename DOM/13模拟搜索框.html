@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input{
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="tet" value="请输入内容">
+    <script>
+        var obj = document.getElementById("tet");
+        obj.onfocus = function(){
+            if(this.value =="请输入内容"){
+                this.value = "";
+                this.style.color ="black";
+            }
+        }
+        obj.onblur = function(){
+            if(this.value.length == 0){
+                this.style.color = 'gray';
+                this.value = "请输入内容";
+            }
+        }
+    </script>
+</body>
+</html>

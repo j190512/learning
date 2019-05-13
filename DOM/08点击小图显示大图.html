@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        body,
+        html {
+            width: 100%;
+        }
+
+        .con {
+            height: 100px;
+            width: 400px;
+            margin: 100px auto;
+        }
+
+        li {
+            float: left;
+            margin-left: 10px;
+            border: 1px solid white;
+        }
+
+        a img {
+            height: 100px;
+            width: 120px;
+        }
+
+        .two {
+            margin: 0 auto;
+            width: 350px;
+            height: 300px;
+            background-color: beige;
+        }
+        .two img{
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="con">
+        <ul>
+            <li><a href="images/詹姆斯1.jpg" title="詹姆斯1"><img src="images/詹姆斯1.jpg" alt="詹姆斯"></a></li>
+            <li><a href="images/詹姆斯2.jpg" title="詹姆斯2"><img src="images/詹姆斯2.jpg" alt="詹姆斯"></a></li>
+            <li><a href="images/詹姆斯3.jpg" title="詹姆斯3"><img src="images/詹姆斯3.jpg" alt="詹姆斯"></a></li>
+        </ul>
+    </div>
+    <div class="two">
+        <img src="" alt="" id="big">
+        <p id="p1"></p>
+    </div>
+    <script>
+        function my$(id) {
+            return document.getElementById(id);
+        }
+        var aObj = document.getElementsByTagName("a");
+        for (var i = 0; i < aObj.length; i++) {
+            aObj[i].onclick = function () {
+                my$("big").src = this.href;
+                my$("p1").innerText = this.title;
+                return false;
+            }
+        }
+        var liObjs = document.getElementsByTagName("li");
+        for(var i =0;i<liObjs.length;i++){
+            liObjs[i].onmouseover = function(){
+                this.style.border = "1px solid red";
+            }
+            liObjs[i].onmouseout = function(){
+                this.style.border = "";
+            }
+        }
+    </script>
+</body>
+
+</html>

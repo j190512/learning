@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style: none;
+            cursor: pointer;
+        }
+        .cls{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <ul id="uu"> 
+        <li>或</li>
+        <li>达到</li>
+        <li>的爱我的</li>
+        <li>大伟大的 </li>
+        <li>好久好久</li>
+    </ul>
+    <script>
+        var list = document.getElementById("uu").getElementsByTagName("li");
+        for(var i =0;i<list.length;i++){
+            //为li注册鼠标进入事件
+            list[i].onmouseover = function(){
+                this.className = "cls";
+            }
+            //为li注册鼠标离开事件
+            list[i].onmouseout = function(){
+                this.className = "";
+            }
+        }
+    </script>
+</body>
+</html>

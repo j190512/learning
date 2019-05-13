@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="输出1" id="Abtn">
+    <input type="button" value="解绑第一个" id="Abtn2"><br>
+    <input type="button" value="输出2" id="Bbtn">
+    <input type="button" value="解绑第二个" id="Bbtn2"><br>
+    <input type="button" value="输出3" id="Cbtn">
+    <input type="button" value="解绑第3个" id="Cbtn2"><br>
+    <input type="button" value="兼容绑定" id="btn">
+    <input type="button" value="兼容解绑" id='btn2'>
+    <script>
+        // //用什么方式绑定事件就应该用什么方式解绑事件
+        // document.getElementById("Abtn").onclick = function () {
+        //     console.log("1");
+        // };
+        // document.getElementById("Abtn2").onclick = function () {
+        //     document.getElementById("Abtn").onclick = null; //第一种解绑事件
+        // }
+
+        // //第二种 --->ie8 不支持
+        // document.getElementById("Bbtn").addEventListener("click", f2, false); //函数不要()
+
+        // //解绑事件时，需要使用命名函数！！
+        // function f2() {
+        //     console.log(2);
+        // }
+        // //给第二个按钮 绑定 为第一个按钮解绑的事件
+        // document.getElementById("Bbtn2").onclick = function () {
+        //     document.getElementById("Bbtn").removeEventListener("click", f2, false); //解绑 函数不要()
+        // }
+
+        // //第三种 ie8专用  detachEvent
+        // function f3() {
+        //     console.log(3);
+        // }
+        // document.getElementById("Cbtn").attachEvent("onclick", f3);
+        // document.getElementById("Cbtn2").attachEvent("onclick", function () {
+        //     document.getElementById("Cbtn").detachEvent("onclick", f3);
+        // });
+
+
+
+        // 兼容代码--为任意元素绑定任意事件
+        function addEventListener(element, type, fn) {
+            //判断浏览器是否支持这个方法
+            if (element.addEventListener) {
+                element.addEventListener(type, fn, false);
+                // console.log(this); //当前对象
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, fn);
+                // console.log(this); //window
+            } else {
+                element["on" + type] = fn;
+            }
+        }
+        // 兼容代码--为任意元素解绑任意事件
+        function removeEventListener(element, type, fnName) {
+            console.log("测试");
+            //判断浏览器是否支持这个方法
+            if (element.removeEventListener) {
+                element.removeEventListener(type, fnName, false);
+                // console.log(this);//当前对象
+                console.log("removeE");
+            } else if (element.detachEvent) {
+                element.detachEvent("on" + type, fnName);
+                // console.log(this);//window
+                console.log("removeD");
+            } else {
+                element["on" + type] = null;
+            }
+        }
+        function ff(){
+            console.log("兼容");
+        }
+        function fDle(){
+            removeEventListener(document.getElementById("btn"),"click",ff);
+        }
+        addEventListener(document.getElementById("btn"),"click",ff);
+        addEventListener(document.getElementById("btn2"),"click",fDle);//要借助第三方函数
+
+        //bug:直接运行移除解绑事件（没有点击的情况下）
+        // addEventListener(document.getElementById("btn2"),"click",removeEventListener);
+        // removeEventListener(document.getElementById("btn"),"click",ff);
+    </script>
+</body>
+
+</html>
