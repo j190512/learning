@@ -46,24 +46,28 @@
         var divs = document.getElementsByTagName("div");
         var flag = true; //判断是否停止点名，默认为true
         var i = null;
-        my$("startBtn").onclick = function () {
-            my$("startBtn").disabled = true;
+        var btn = my$("startBtn");
+        btn.onclick = function () {
+            clearInterval(btn.timer);
             //初始状态：消除所有记号
             for (var j = 0; j < divs.length; j++) {
                 divs[j].style.background = "";
             }
-            flag = true;//再次按下开始键，恢复默认状态
             var len = divs.length;
             i = getRanDomOne(0, len - 1);
             divs[i].style.backgroundColor = "red";
-            var timer = null;
-            // clearTimeout(timer);//清除计时器
+            //避免计时器开始时的空白期
             nextName();
+            //避免创建过多的计时器
+
             function nextName() {
+                btn.timer = setTimeout(function () {
+                    nextName();
+                }, 500);
                 var who = i;
                 //按下停止就取消计时器，停止函数
                 if (!flag) {
-                    clearTimeout(timer);
+                    clearTimeout(btn.timer);
                     return false;
                 }
                 for (var j = 0; j < len; j++) {
@@ -77,15 +81,10 @@
                 console.log(i);
                 //选中的人有背景色
                 divs[i].style.backgroundColor = "red";
-                // console.log(divs[i].innerText);
-                timer = setTimeout(function () {
-                    nextName();
-                }, 500);
             }
         }
         my$("stopBtn").onclick = function () {
             flag = false;
-            my$("startBtn").disabled = false;
         }
     </script>
 </body>
