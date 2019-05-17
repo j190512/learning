@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        img {
+            vertical-align: bottom;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            margin: 50px auto;
+            width: 400px;
+            height: 300px;
+            padding: 5px;
+            border: 2px solid gold;
+        }
+
+        .inner {
+            width: 400px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inner ul {
+            width: 400%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .inner li {
+            float: left;
+        }
+
+        .btn {
+            display: none;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            /* margin-top: -25px; */
+            transform: translate(0, -50%);
+        }
+
+        .btn span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(100, 66, 50, .8);
+            line-height: 50px;
+            text-align: center;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .btn .right {
+            float: right;
+        }
+
+        .square {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .square span {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: gold;
+            text-align: center;
+            color: black;
+            cursor: pointer;
+            border: 3px solid transparent;
+            box-sizing: border-box;
+        }
+
+        .square .current {
+            border: 3px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="inner">
+            <ul>
+                <li><a href="#"><img src="images/詹姆斯1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/詹姆斯2.jpg" alt="" style="width:400px;height:400px"></a></li>
+                <li><a href="#"><img src="images/詹姆斯6.jpg" alt="" style="width:400px;height:400px"></a></li>
+                <li><a href="#"><img src="images/詹姆斯1.jpg" alt=""></a></li>
+            </ul>
+            <div class="btn">
+                <span>&lt</span>
+                <span class="right">&gt</span>
+            </div>
+            <div class="square">
+                <span class="current">1</span>
+                <span>2</span>
+                <span>3</span>
+            </div>
+        </div>
+    </div>
+    <script src="../common.js"></script>
+    <script>
+        var inner = document.getElementsByClassName("inner")[0];
+        var ulObj = inner.children[0];
+        var imgWidth = inner.offsetWidth;
+        var spans = document.getElementsByClassName("square")[0].children;
+        //方块索引 图片变换
+        for (var i = 0; i < spans.length; i++) {
+            spans[i].setAttribute("index", i);
+            spans[i].onmouseover = function () {
+                for (var j = 0; j < spans.length; j++) {
+                    spans[j].removeAttribute("class");
+                }
+                this.className = "current";
+                var index = this.getAttribute("index");
+                animate(ulObj, -index * imgWidth, 10);
+            }
+
+        }
+
+        
+        var btns = document.getElementsByClassName("btn")[0];
+        //上下按钮显示
+        inner.onmouseover = function () {
+            btns.style.display = "block";
+        }
+        //上下按钮隐藏
+        inner.onmouseout = function () {
+            btns.style.display = "none";
+        }
+        //为btn注册点击事件
+        //左按钮
+        var btnIndex = 0;
+        btns.firstElementChild.onclick = function () {
+            if (btnIndex > 0) {
+                btnIndex--;
+                animate(ulObj, -btnIndex * imgWidth, 10);
+            }
+        }
+        //右按钮
+        btns.lastElementChild.onclick = function () {
+            if (btnIndex < ulObj.children.length - 1) {
+                btnIndex++;
+                animate(ulObj, -btnIndex * imgWidth, 10);
+            }
+        }
+
+
+        //图片自由移动
+        var newCurrent = 0;
+        function interval() {
+            newCurrent -= 100;
+            if (newCurrent < -1200) {
+                ulObj.style.left = 0;
+                newCurrent = 0;
+            }
+            ulObj.style.left = newCurrent + "px";
+        }
+        var timeId = setInterval(interval, 200);
+        var box = document.getElementsByClassName("box")[0];
+        box.onmouseover = function () {
+            clearInterval(timeId);
+        }
+        box.onmouseout = function () {
+            //重新开启一个定时器---旧的已经被清除
+            timeId = setInterval(interval, 200);
+        }
+    </script>
+</body>
+
+</html>

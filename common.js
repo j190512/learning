@@ -68,3 +68,29 @@ function removeEventListener(element, type, fnName) {
         element["on" + type] = null;
     }
 }
+
+//动画函数--任意一个元素移动到目标(左右)位置 
+//参数：对象元素（position:absolute才能运动）  目标位置   定时器时间-默认为200毫秒(可改)
+function animate(element,target,time){
+    clearInterval(element.timeId);
+    //定时器的id值存在对象的一个属性值中，避免创建过多的定时器
+    element.timeId = setInterval(function(){
+        // 获取当前位置
+        var current = element.offsetLeft;
+        //每次运动的距离--10px
+        var step = 10;
+        //移动的方向
+        step = current < target ? step : -step;
+        //移动到当前位置
+        current += step;
+        if(Math.abs(current - target)>Math.abs(step)){
+            element.style.left = current + "px";
+        }
+        else{
+            element.style.left = target + "px";
+            clearInterval(element.timeId);
+        }
+        // console.log( element.style.left);
+    },time||200);
+}
+

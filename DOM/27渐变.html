@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background: red;
+            position:absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="button" value="渐变" id="btn">
+    <input type="button" value="运动2" id="btn2">
+    <input type="button" value="运动3" id="btn3">
+    <div id="dv"></div>
+    <script>
+        document.getElementById("btn").onclick = function () {
+            var opacity = 10;
+            var timer = setInterval(function () {
+                if (opacity > 0) { //透明化
+                    opacity--;
+                    document.getElementById("dv").style.opacity = opacity / 10;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 200);
+        };
+        document.getElementById("btn2").onclick = function () {
+            clearInterval(document.getElementById("dv").timer);
+            //运动需要脱离文档流
+            document.getElementById("dv").style.position = "absolute";
+            //设置默认位置
+            document.getElementById("dv").style.left = 50 + "px";
+            //避免创建过多的计时器
+            document.getElementById("dv").timer = setInterval(function () {
+                //获取div当前的位置
+                //offsetLeft --->只读属性
+                var current = document.getElementById("dv").offsetLeft; //数字类型,没有px
+                //设置div每次运动的距离
+                var step = 9;
+                //设置每次运动后的位置
+                current += step;                
+                if (Math.abs(500 - document.getElementById("dv").offsetLeft) > step) {
+                    document.getElementById("dv").style.left = current + "px";                   
+                }
+                else{
+                    document.getElementById("dv").style.left = 500 + "px";
+                    clearInterval(document.getElementById("dv").timer);
+                }
+            }, 200);
+        }
+    </script>
+    <script src="../common.js"></script>
+    <script>
+        my$("btn3").onclick = function(){
+            animate(my$("dv"),800);
+        }
+    </script>
+</body>
+
+</html>

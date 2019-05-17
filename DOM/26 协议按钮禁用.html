@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <textarea name="" id="" cols="30" rows="10" disabled>
+        1234567896365415645615
+    </textarea>
+    <br>
+    <input type="button" value="请阅读协议(3)" id="btn" disabled>
+    <script src="../common.js"></script>
+    <script>
+        var time = 3;
+        var timer = setInterval(function () {
+            time--;
+            my$("btn").value = "请阅读协议("+time+")";
+            if (time <= 0) {
+                clearInterval(timer);
+                my$("btn").value = "确定";
+                my$("btn").disabled = false;
+            }                                 
+        }, 1000);
+    </script>
+</body>
+
+</html>

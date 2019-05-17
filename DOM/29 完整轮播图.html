@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学习</title>
+    <link rel="stylesheet" href="">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .box {
+            width: 400px;
+            height: 300px;
+            margin: 100px auto;
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .inner {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .inner .btns {
+            display: none;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            z-index: 10;
+        }
+
+        .inner .btns span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 30px;
+            text-align: center;
+            line-height: 50px;
+            background: rgba(150, 80, 50, .8);
+        }
+
+        .inner .btns .r {
+            float: right;
+        }
+
+        .inner .im {
+            position: absolute;
+            width: 4000%;
+            top: 0;
+            left: 0;
+        }
+
+        .inner .im li {
+            float: left;
+        }
+
+        .inner .im li img {
+            width: 400px;
+            height: 300px;
+        }
+
+        .inner .dots {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            bottom: 20px;
+        }
+
+        .inner .dots span {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin-right: 3px;
+            background: rgba(150, 80, 50, .8);
+            cursor: pointer;
+        }
+
+        .current {
+            border: 3px solid gold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="inner">
+            <div class="btns">
+                <span>&lt</span>
+                <span class="r">&gt</span>
+            </div>
+            <div class="im">
+                <li><a href="#"><img src="images/詹姆斯1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/詹姆斯2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/詹姆斯5.jpg" alt=""></a></li>
+            </div>
+            <div class="dots"></div>
+        </div>
+    </div>
+    <script>
+        var index = 0; //默认索引
+        var inner = document.getElementsByClassName("inner")[0]; //相框
+        var btns = document.getElementsByClassName("btns")[0];
+        var im = inner.getElementsByClassName("im")[0];
+        var imgWidth = inner.offsetWidth; //取图片相框的长度
+        var dots = inner.getElementsByClassName("dots")[0];
+        //动态创建span
+        for (var i = 0; i < im.children.length; i++) {
+            var span = document.createElement("span");
+            span.innerText = i + 1;
+            dots.appendChild(span);
+        }
+        dots.children[index].className = "current";
+        //显示左右按钮
+        inner.onmouseover = function () {
+            clearInterval(timeId);
+            btns.style.display = "block";
+        }
+        //鼠标置于inner外，隐藏左右按钮
+        inner.onmouseout = function () {
+            btns.style.display = "none";
+            timeId = setInterval(nextBtn, 1000);
+        }
+        //克隆第一张图并且置于im中的最后一张-->解决循环播放时出现的空白
+        im.appendChild(im.children[0].cloneNode(true));
+        //为span设置索引index 并设置点击事件
+        for (var i = 0; i < dots.children.length; i++) {
+
+            dots.children[i].setAttribute("index", i);
+            //点击span移动图片
+            dots.children[i].onclick = function () {
+                //为span设置样式
+                //排它样式
+                for (var j = 0; j < dots.children.length; j++) {
+                    dots.children[j].removeAttribute("class");
+                }
+                //为被点击的span设置样式
+                this.className = "current";
+                index = this.getAttribute("index");
+                animate(im, -index * imgWidth);
+            }
+        }
+        //为上下图片按钮设置点击事件
+        //上
+        btns.firstElementChild.onclick = function () {
+            //清除所有span的样式
+            for (var i = 0; i < dots.children.length; i++) {
+                dots.children[i].className = "none";
+            }
+            if (index == 0) {
+                index = im.children.length - 1; //在第一张图片点击上一张图片时，索引为最后一张图（新创的）
+                im.style.left = -index * imgWidth + "px";
+            }
+            index--;
+            animate(im, -index * imgWidth);
+            dots.children[index].className = "current";
+        }
+        //下
+        btns.lastElementChild.onclick = nextBtn;
+        //用户看到的最后一张图片，实际是倒数第二张,此时 index= 2
+        function nextBtn() {
+            //清除所有span的样式
+            for (var i = 0; i < dots.children.length; i++) {
+                dots.children[i].className = "none";
+            }            
+            if (index == dots.children.length) {//index == 3
+                index = 0;
+                im.style.left = 0 + "px";
+            }
+            index++;
+            animate(im, -index * imgWidth);
+            //索引指向最后一张图时，用户看到的以为是第一张，将背景色加上
+            if(index == im.children.length-1){
+                dots.children[0].className = "current";
+                return;
+            }
+            dots.children[index].className = "current";
+        }
+        // 自动循环--相当于一直点击下一张图片的按钮
+        var timeId = setInterval(nextBtn, 1000);
+
+        //运动函数
+        function animate(element, target) {
+            clearInterval(element.timeId); //清理定时器
+            element.timeId = setInterval(function () {
+                var current = element.offsetLeft; //获取元素的位置
+                var step = 10; //每次运动的步长
+                step = current < target ? step : -step; //判断运动方向
+                current += step; //运动后的位置
+                //设置定时器
+                if (Math.abs(target - current) > Math.abs(step)) {
+                    element.style.left = current + "px";
+                } else {
+                    element.style.left = target + "px";
+                    clearInterval(element.timeId); //已到达目的，清理定时器
+                }
+            }, 20);
+        }
+    </script>
+</body>
+
+</html>

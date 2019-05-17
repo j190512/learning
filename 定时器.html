@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>学习</title>
     <link rel="stylesheet" href="">
-    
+
 </head>
 
 <body>
@@ -16,13 +16,25 @@
         //参数2：时间--毫秒
         //执行过程：页面加载完毕后 过了n秒执行函数。。。循环
         //返回值：定时器的id值
-        document.getElementById("btn").onclick = function(){
-           clearInterval(timer); 
+        document.getElementById("btn").onclick = function () {
+            clearInterval(timer);
         }
-        var timer = setInterval(function(){
+        var timer = setInterval(function () {
             console.log("后羿别浪");
+        }, 1000);
+    </script>
+    <script>
+        //setTimeout(参数1,参数2); ----一次性的定时器
+        //参数1：函数
+        //参数2：时间--毫秒
+        //执行过程：页面加载完毕后 过了n秒执行函数,只执行一次
+        //返回值：定时器的id值
+        var timeId = setTimeout(function(){
+            console.log("后羿,后羿请继续");
         },1000);
-        </script>
+        //一次性函数执行完毕后，不再执行，可是，它还是占内存的，所以最好把它清除
+        // clearTimeout(timeId);
+    </script>
 </body>
 
 </html>
